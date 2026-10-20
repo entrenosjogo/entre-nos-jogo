@@ -40,8 +40,23 @@ h1 { font-size:clamp(2.7rem, 7vw, 5.2rem); margin:15px 0 20px; letter-spacing:-.
 h2 { font-size:clamp(2rem, 5vw, 3.1rem); margin:12px 0; letter-spacing:-.025em; }
 p { line-height:1.65; }
 .intro { max-width:650px; margin:0 auto; text-align:center; }
-.heart-hero { width:96px; height:96px; display:grid; place-items:center; margin:0 auto 22px; background:transparent; color:var(--site-primary); border-radius:0; font-size:3rem; box-shadow:none; border:0; }
+.heart-hero { width:180px; height:96px; display:grid; place-items:center; margin:0 auto 22px; background:transparent; border-radius:0; box-shadow:none; border:0; }
+.heart-hero img { display:block; width:100%; max-height:96px; object-fit:contain; }
+.brand-mark { display:inline-flex; width:42px; height:22px; vertical-align:middle; align-items:center; margin-right:8px; }
+.brand-mark img { display:block; width:100%; height:100%; object-fit:contain; }
 .lead { max-width:520px; margin:0 auto 30px; font-size:1.05rem; opacity:.82; }
+.manual { max-width:680px; margin:0 auto 30px; padding:24px; border:1px solid #000000; border-radius:20px; text-align:left; }
+.manual h2 { font-size:clamp(1.65rem, 4vw, 2.2rem); margin:0 0 12px; text-align:center; }
+.manual p { margin:0 0 16px; }
+.manual-categories { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:16px 0 20px; padding:0; list-style:none; }
+.manual-categories li { display:inline-flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid #000000; border-radius:999px; font-size:.88rem; }
+.manual-categories li:nth-child(1) { background:#C0E6C7; }
+.manual-categories li:nth-child(2) { background:#FCEAE6; }
+.manual-categories li:nth-child(3) { background:#FAECB8; }
+.manual-categories li:nth-child(4) { background:#D4ECF6; }
+.manual-rules { padding-left:22px; margin:0; }
+.manual-rules li { line-height:1.55; margin:0 0 10px; }
+@media(max-width:560px) { .manual { padding:18px; } .manual-categories { justify-content:flex-start; } }
 .btn { border:0; border-radius:999px; padding:14px 25px; font-weight:650; transition:transform .2s, background .2s; }
 .btn:hover { transform:translateY(-2px); }
 .btn-primary { background:var(--site-primary); color:var(--site-on-primary); }
@@ -87,16 +102,34 @@ p { line-height:1.65; }
 <body>
 <div id="app">
   <header class="topbar">
-    <div class="brand"><span class="brand-mark">♥</span>ENTRE NÓS</div>
+    <div class="brand"><span class="brand-mark"><img src="./novelo-logo.png" alt=""></span>ENTRE NÓS</div>
     <div class="topnote">Um convite para se aproximar</div>
   </header>
   <main>
     <section id="welcome" class="view active">
       <div class="intro">
-        <div class="heart-hero" aria-hidden="true">♥</div>
+        <div class="heart-hero" aria-hidden="true"><img src="./novelo-logo.png" alt=""></div>
         <div class="eyebrow">Um jogo para dois</div>
         <h1>Entre Nós</h1>
         <p class="lead">Perguntas para conversar com carinho, curiosidade e sinceridade. Escolham as cartas que combinam com o momento de vocês.</p>
+        <section class="manual" aria-labelledby="manualTitle">
+          <h2 id="manualTitle">Como jogar</h2>
+          <p>É uma proposta de recurso conversacional para jovens e adultos refletirem sobre comportamentos, consequências e formas de convivência em relacionamentos amorosos. O baralho reúne 44 perguntas organizadas em quatro categorias:</p>
+          <ul class="manual-categories">
+            <li>O que faz bem para nós?</li>
+            <li>O que nos afasta?</li>
+            <li>Quando algo deixa de acontecer</li>
+            <li>O que podemos aprender juntos?</li>
+          </ul>
+          <ul class="manual-rules">
+            <li>Não existem respostas certas ou erradas.</li>
+            <li>Qualquer participante pode pular perguntas ou encerrar a atividade.</li>
+            <li>Escolham uma categoria ou embaralhem todas as cartas.</li>
+            <li>Leiam uma pergunta por vez e permitam que cada um responda livremente.</li>
+            <li>Quando possível, conversem sobre situações concretas, respeitando os limites de ambos.</li>
+            <li>Ao final, perguntem um ao outro o que aprenderam com a conversa e quais mudanças gostariam de experimentar.</li>
+          </ul>
+        </section>
         <button class="btn btn-primary" id="startBtn">Começar a jogar <span aria-hidden="true">→</span></button>
       </div>
     </section>
@@ -131,7 +164,7 @@ p { line-height:1.65; }
           <button class="btn btn-quiet" id="restartBtn">Recomeçar</button>
         </div>
         <div class="empty-state" id="finished" hidden>
-          <div class="heart-hero" aria-hidden="true">♥</div>
+          <div class="heart-hero" aria-hidden="true"><img src="./novelo-logo.png" alt=""></div>
           <h2>Vocês chegaram ao fim do baralho!</h2>
           <p>Obrigado por reservarem esse tempo um para o outro.</p>
           <button class="btn btn-primary" id="againBtn">Jogar novamente</button>
@@ -172,7 +205,7 @@ const decks = [
  'Existe algo que você evita me pedir porque teme como eu vou reagir?',
  'Você já deixou de fazer alguma coisa na nossa relação por causa de uma reação minha? O que aconteceu?'
  ]},
- { id:'mudou', title:'O que deixou de acontecer?', short:'O QUE DEIXOU DE ACONTECER?', color:'#FAECB8', symbol:'…', description:'Mudanças na rotina, gestos que fazem falta e tentativas interrompidas.', pages:[25,26,27,28,29,30,31,32,33,34,35], backPage:36, cards:[
+ { id:'mudou', title:'Quando algo deixa de acontecer', short:'QUANDO ALGO DEIXA DE ACONTECER', color:'#FAECB8', symbol:'…', description:'Mudanças na rotina, gestos que fazem falta e tentativas interrompidas.', pages:[25,26,27,28,29,30,31,32,33,34,35], backPage:36, cards:[
  'Que coisa que fazíamos juntos você sente falta? O que acha que mudou?',
  'Existe algum gesto de carinho meu que diminuiu com o tempo e que você sente falta?',
  'Quando você tenta iniciar uma conversa comigo e eu não respondo como você esperava, como você se sente?',
@@ -219,7 +252,7 @@ function startGame() {
 }
 function drawNext() {
  if(!pile.length){ $('cardButton').hidden=true; $('gameButtons').hidden=true; $('instruction').hidden=true; $('finished').hidden=false; $('counter').textContent=`${drawn} cartas respondidas`; $('progressFill').style.width='100%'; return; }
- current=pile.pop(); drawn++; revealed=false; $('cardFrontImage').src=cardImages[current.cardPage]; $('cardFrontImage').alt=current.question; $('cardBackImage').src=cardImages[current.deck.backPage]; $('cardButton').classList.remove('revealed'); $('cardButton').setAttribute('aria-label','Revelar carta: '+current.question); $('counter').textContent=`Carta ${drawn} de ${drawn+pile.length}`; $('progressFill').style.width=`${(drawn/(drawn+pile.length))*100}%`; $('instruction').textContent='Toque na carta para revelar a pergunta.'; $('nextBtn').textContent=pile.length?'Próxima carta →':'Finalizar partida';
+ current=pile.pop(); drawn++; revealed=false; $('nextBtn').style.backgroundColor=current.deck.color; $('nextBtn').style.color='#000000'; $('cardFrontImage').src=cardImages[current.cardPage]; $('cardFrontImage').alt=current.question; $('cardBackImage').src=cardImages[current.deck.backPage]; $('cardButton').classList.remove('revealed'); $('cardButton').setAttribute('aria-label','Revelar carta: '+current.question); $('counter').textContent=`Carta ${drawn} de ${drawn+pile.length}`; $('progressFill').style.width=`${(drawn/(drawn+pile.length))*100}%`; $('instruction').textContent='Toque na carta para revelar a pergunta.'; $('nextBtn').textContent=pile.length?'Próxima carta →':'Finalizar partida';
 }
 function flipCard() { if(!current||revealed)return; revealed=true; $('cardButton').classList.add('revealed'); $('cardButton').setAttribute('aria-label','Carta revelada'); $('instruction').textContent='Leiam a pergunta e conversem no ritmo de vocês.'; }
 $('startBtn').addEventListener('click',()=>{renderDecks();showView('selection');});
@@ -233,4 +266,3 @@ renderDecks();
 </script>
 </body>
 </html>
-
